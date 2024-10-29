@@ -1,0 +1,56 @@
+name: Laravel Deployment
+on:
+    push:
+        branches:
+            - develop
+            - master
+
+jobs:
+    deploy:
+        name: Deploy
+        runs-on: ubuntu-latest
+        steps:
+            - name: Check out code
+              uses: actions/checkout@v3
+
+            - name: Setup PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                php-version: '8.3'
+
+            - name: Install dependencies
+              run: |
+                composer install
+
+            - name: Deploy to development
+              if: github.ref == 'refs/heads/develop'
+              uses: appleboy/ssh-action@v1.0.3
+              with:
+                  host: "${{ secrets.HOST }}"
+                  username: "${{ secrets.USERNAME }}"
+                  password: "${{ secrets.PASSWORD }}"
+                  script: |
+                      cd /home/webshum/web-shum.com.ua/derevbud
+                      git pull origin develop --force
+                      npm install
+                      npm run build
+
+            - name: Deploy to production
+              if: github.ref == 'refs/heads/master'
+              uses: appleboy/ssh-action@v1.0.3
+              with:
+                  host: "${{ secrets.HOST }}"
+                  username: "${{ secrets.USERNAME }}"
+                  password: "${{ secrets.PASSWORD }}"
+                  script: |
+                      cd /home/maste103/master5.kiev.ua/www
+                      git pull origin master --force
+
+            - name: Send Telegram message
+              if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/develop'
+              uses: appleboy/telegram-action@v0.1.0
+              with:
+                  to: "${{ secrets.TELEGRAM_ID }}"
+                  token: "${{ secrets.TELEGRAM_TOKEN }}"
+                  message: |
+                      Deployment successful derevbud.com.ua on branch ${{ github.ref }}
