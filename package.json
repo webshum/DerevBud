@@ -1,0 +1,16 @@
+{
+  "type": "module",
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "vite": "^5.4.4",
+    "vue": "^3.5.12",
+    "vue-i18n": "^10.0.4"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.1.4"
+  }
+}

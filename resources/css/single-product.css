@@ -1,0 +1,149 @@
+.product-single {
+	.woocommerce-breadcrumb {
+		margin-bottom: 30px;
+	}
+
+	.grid {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 30px 30px;
+	}
+
+	.nav-product {
+		display: flex;
+		align-items: center;
+		justify-content: end;
+		gap: 0 10px;
+
+		a {
+			display: inline-flex;
+			align-items: center;
+			gap: 0 10px;
+			padding: 3px 15px;
+			border: 1px solid #ddd;
+			font-size: 12px;
+			text-decoration: none;
+			color: var(--color);
+			min-height: 35px;
+			transition: all 0.3s;
+
+			&:after {
+				content: '';
+				display: block;
+		        width: 5px;
+		        height: 5px;
+		        border-top: 1px solid var(--color);
+		        border-left: 1px solid var(--color);
+		        order: 1;
+		        transform-origin: center;
+		        transform: rotate(135deg) translateX(50%);
+		        margin-top: -3px;
+		        transition: all 0.3s;
+			}
+		}
+
+		a[rel="prev"]:after {
+			margin-top: 0;
+			transform: rotate(-45deg);
+		}
+
+		a:hover {
+			color: var(--c-orange);
+			&:after {border-color: var(--c-orange);}
+		}
+	}
+
+	.summary {width: 100% !important;}
+
+	h1 {
+		font-weight: 400;
+		font-size: 20px;
+	}
+
+	.ticket {
+		display: flex;
+		align-items: center;
+		gap: 0 10px;
+		margin: 20px 0;
+		font-size: 13px;
+		text-transform: uppercase;
+
+		svg {
+			width: 25px;
+			height: 25px;
+			fill: var(--c-orange);
+		}
+	}
+
+	.price {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		font-size: 13px;
+		text-transform: uppercase;
+		margin: 20px 0;
+	}
+
+	.amount {
+		font-size: 30px;
+		display: flex;
+		align-items: center;
+
+		.woocommerce-Price-currencySymbol {
+			margin-left: 10px;
+			font-size: 14px;
+			font-weight: 300;
+		}
+	}
+
+	.links {
+		a {
+			font-size: 13px;
+			display: inline-block;
+			border-bottom: 1px dashed #1883D7;
+			color: #1883D7;
+			text-decoration: none;
+			transition: all 0.3s;
+			padding: 5px 0;
+		}
+		a:hover {
+			border-bottom: 1px solid #fff;
+			color: var(--c-orange);
+		}
+	}
+
+	.btn-fill {
+		margin-top: 20px;
+	}
+}
+
+.slider-product {
+	ul {
+		margin-top: 20px;
+		list-style: none;
+		display: flex;
+		flex-direction: column;
+		gap: 20px 20px;
+	}
+}
+
+.product-attributes {
+	list-style: none;
+	margin: 30px 0;
+
+	li {
+		display: flex;
+		align-items: center;
+		font-size: 12px;
+		font-weight: 400;
+		text-transform: uppercase;
+		padding: 5px 0;
+
+		.title {font-weight: 300;}
+
+		.value {
+			padding-left: 5px;
+			font-weight: 500;
+		}
+	}
+}

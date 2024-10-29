@@ -1,0 +1,254 @@
+#header {
+	position: fixed;
+	top: 0;
+	right: 0;
+	left: 0;
+	z-index: 991;
+	background: #fff;
+	border-bottom: 1px solid #e2e0e0;
+	box-shadow: 0 0 15px rgba(0,0,0,.05);
+
+	.center {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+
+	.logo {
+		display: inline-block;
+		width: 150px;
+		line-height: 0;
+	}
+
+	.right {
+		display: flex;
+		flex-direction: column;
+		padding-top: 10px;
+	}
+
+	.head-contacts {
+		display: flex;
+		align-items: center;
+		gap: 30px;
+		margin-left: auto;
+	}
+}
+
+.logged-in #header {top: 32px;}
+
+.nav {
+	margin-left: auto;
+
+	.menu {
+		list-style: none;
+		display: flex;
+
+		& > li {position: relative;}
+		& > li > a {
+			display: flex;
+			align-items: center;
+			gap: 0 15px;
+			padding: 10px 15px 13px 15px;
+			text-align: center;
+			font-size: 13px;
+			text-transform: uppercase;
+			text-decoration: none;
+			color: var(--color);
+			transition: color 0.3s;
+			position: relative;
+		}
+
+		& > li:last-child a {padding-right: 0;}
+
+		& > li > a:hover {color: var(--c-orange);}
+		& > li > a:hover:before {border-color: var(--c-orange);}
+
+		& > li > a:after {
+			content: '';
+			width: 0;
+			height: 2px;
+			display: inline-block;
+			transition: all 0.3s;
+			position: absolute;
+			left: 0;
+			bottom: 0;
+			background: var(--c-orange);
+		}
+
+		& > li > a:hover:after {width: 100%;}
+	}
+
+	.menu-item-has-children > a:before {
+		content: '';
+		display: block;
+		display: block;
+		width: 5px;
+		height: 5px;
+		border-top: 1.5px solid var(--color);
+		border-left: 1.5px solid var(--color);
+		order: 1;
+		transform-origin: center;
+		transform: rotate(-135deg) translateX(50%);
+	}
+
+	.sub-menu {
+		display: none;
+		position: absolute;
+		top: 100%;
+		left: 0;
+		width: 250px;
+		background: #fff;
+		color: #999;
+		height: auto;
+		padding-right: 15px;
+		box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.05);
+		transition: all .3s;
+		padding: 10px 0;
+
+		li {list-style: none;}
+
+		a {
+			display: block;
+			padding: 5px 20px 5px 20px;
+			font-size: 12px;
+			font-weight: 300;
+			color: #999999;
+			text-decoration: none;
+			transition: all 0.3s;
+
+			&:hover {
+				text-decoration: none;
+				color: var(--c-orange);
+				padding-left: 35px;
+			}
+		}
+	}
+
+	.menu > li:hover .sub-menu {
+		display: block;
+		animation: sub-menu .3s;
+	}
+}
+
+@keyframes sub-menu {
+    0% {top: 170%}
+    100% {top: 100%}
+}
+
+.pll-switcher-select {
+	color: var(--color);
+	text-transform: uppercase;
+	cursor: pointer;
+}
+
+.head-phones {
+	position: relative;
+
+	& > a {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		font-size: 16px;
+		text-decoration: none;
+		color: var(--color);
+		font-weight: 300;
+		transition: all 0.3s;
+		svg {
+			fill: var(--color);
+			width: 6px;
+			height: 11px;
+			transition: all 0.3s;
+			transform-origin: center;
+		}
+
+		&:hover {color: var(--c-orange);}
+		&:hover svg {fill: var(--c-orange);}
+	}
+
+	&.open > a {color: var(--c-orange);}
+	&.open > a svg {
+		transform: rotate(90deg);
+		fill: var(--c-orange);
+	}
+
+	.inner {
+		position: absolute;
+		top: 100%;
+		min-width: 250px;
+		z-index: 99;
+		margin-top: 10px;
+		background: #fff;
+		box-shadow: 2px 2px 15px rgba(0, 0, 0, .1);
+		padding: 20px;
+		border-top: 1px solid #e2e2e2;
+		display: none;
+	}
+
+	&.open .inner {
+		display: block;
+		animation: sub-menu .3s;
+	}
+
+	h4 {
+		color: #4a4a4a;
+		font-size: 12px;
+		margin-bottom: 10px;
+		font-weight: 500;
+	}
+
+	.inner a {
+		display: block;
+		color: #888;
+		font-size: 13px;
+		font-weight: 300;
+		margin-bottom: 5px;
+		text-decoration: none;
+		&:hover {text-decoration: underline;}
+	}
+	.inner a + h4 {margin-top: 10px;}
+
+	input {
+		border: 1px solid #e8e7e7;
+		padding: 5px;
+		font-size: 14px;
+		font-weight: 300;
+		display: block;
+		width: 100%;
+		&::placeholder {
+			font-size: 14px;
+			font-weight: 300;
+			color: #888;
+		}
+	}
+
+	.foot {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		margin-top: 15px;
+	}
+
+	.btn-back {
+		background: none;
+		font-size: 13px;
+		color: #888;
+		transition: all 0.3s;
+		cursor: pointer;
+
+		&:hover {color: var(--c-orange);}
+	}
+
+	button[type="submit"] {
+		background: #e8e6e6;
+		padding: 10px;
+		font-size: 13px;
+		line-height: 1;
+		color: #656363;
+		cursor: pointer;
+		transition: all 0.3s;
+		&:hover {
+			background: var(--c-orange);
+			color: #fff;
+		}
+	}
+}

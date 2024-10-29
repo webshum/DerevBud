@@ -1,0 +1,111 @@
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 9991;
+    background: rgba(0,0,0,.8);
+}
+
+.popup-overlay,
+.popup {
+    display: none;
+    opacity: 0;
+}
+
+.popup-overlay.active,
+.popup.active {
+    display: block;
+    animation: opacity 0.5s linear forwards;
+}
+
+@keyframes opacity {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+}
+
+.popup {
+    position: absolute;
+    left: 50%;
+    z-index: 9992;
+    transform: translateX(-50%);
+    background: #fff;
+    max-width: 500px;
+    width: 100%;
+    padding: 30px;
+
+    .popup-close {
+        background: none;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        cursor: pointer;
+
+        svg {
+            width: 25px;
+            height: 25px;
+            fill: var(--c-orange);
+        }
+    }
+
+    .title {
+        text-align: center;
+        font-weight: 500;
+        font-size: 18px;
+        margin-bottom: 20px;
+        text-transform: uppercase;
+    }
+
+    .flex {
+        margin-top: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0 20px;
+
+        [type="submit"] {margin-top: 0;}
+    }
+
+    input::placeholder {color: #8b8b8b;}
+
+    input[type="tel"] {
+        width: 100%;
+        min-height: 40px;
+        padding: 5px 0 5px 0;
+        border-bottom: 1px solid var(--c-orange);
+    }
+
+    .label {
+        display: block;
+        margin-top: 15px;
+
+        input, textarea {
+            display: block;
+            width: 100%;
+            min-height: 40px;
+            padding: 0 15px;
+            background: #ebebeb;
+            border-bottom: 0;
+            border-radius: 3px;
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: none;
+            padding-top: 10px;
+        }
+    }
+
+    [type="submit"] {
+        background: var(--c-orange);
+        color: #fff;
+        min-height: 40px;
+        margin-top: 15px;
+
+        &:hover {
+            background: var(--color);
+            border-color: var(--color);
+        }
+    }
+}
