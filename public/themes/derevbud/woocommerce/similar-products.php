@@ -45,7 +45,7 @@ $current_price_product = (int)$current_price_product;
                             <h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
 
                             <div class="price">
-                                <?php pll_e('від'); ?> <?php echo ($price) ? $price . ' грн.' : get_price_html(); ?>
+                                <?php pll_e('від'); ?> 
                             </div>
 
                             <svg><use xlink:href="#arr"></use></svg>
@@ -110,12 +110,7 @@ $popular_product = new WP_Query(array(
                     <div class="foot">
                         <h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
 
-                        <?php
-                        global $post;
-                        $price = get_post_meta($post->ID, '_price', true);
-                        ?>
                         <div class="price">
-                            <?php pll_e('від'); ?> <?php echo ($price) ? $price . ' грн.' : get_price_html(); ?>
                         </div>
 
                         <svg><use xlink:href="#arr"></use></svg>
@@ -157,12 +152,8 @@ $popular_product = new WP_Query(array(
                     <div class="foot">
                         <h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
 
-                        <?php
-                        global $post;
-                        $price = get_post_meta($post->ID, '_price', true);
-                        ?>
                         <div class="price">
-                            <?php pll_e('від'); ?> <?php echo ($price) ? $price . ' грн.' : get_price_html(); ?>
+                            <?php pll_e('від'); ?> 
                         </div>
 
                         <svg><use xlink:href="#arr"></use></svg>
@@ -203,12 +194,8 @@ $popular_product = new WP_Query(array(
                     <div class="foot">
                        <h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
 
-                        <?php
-                        global $post;
-                        $price = get_post_meta($post->ID, '_price', true);
-                        ?>
                         <div class="price">
-                            <?php pll_e('від'); ?> <?php echo ($price) ? $price . ' грн.' : get_price_html(); ?> 
+                            <?php pll_e('від'); ?> 
                         </div>
 
                         <svg><use xlink:href="#arr"></use></svg>

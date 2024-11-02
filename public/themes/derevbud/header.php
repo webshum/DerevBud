@@ -36,7 +36,8 @@
                                 <span>
                                     <?php echo explode(':', $phones[0])[0] ?>
                                 </span>
-                                <svg><use xlink:href="#arr"></use></svg>
+                                <svg class="arr"><use xlink:href="#arr"></use></svg>
+                                <svg class="phone d-none"><use xlink:href="#phone"></use></svg>
                             </a>
 
                             <div class="inner">
@@ -75,9 +76,20 @@
                         wp_nav_menu([
                             'theme_location' => 'header',
                             'container' => '',
+                            'before' => '<button class="prev"><svg width="15" height="15"><use xlink:href="#arr"></use></svg></button>',
                         ]); 
                     ?>
+
+                    <div class="d-none s-991 foot">
+                        <a href="#" class="btn"><?php pll_e('Consultation') ?></a>
+                    </div>
                 </nav>
+
+                <button class="btn-nav">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
             </div>
         </div>
     </header>

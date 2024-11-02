@@ -35,12 +35,12 @@ onMounted(() => {
 		<div class="flex">
 			<h2>{{ product.name }}</h2>
 
-			<div v-html="price"></div>
+			<div style="overflow: hidden;" v-html="price"></div>
 		</div>
 
 		<a :href="product.permalink" target="_blank" class="btn-more">
 			<span>{{ $t('readmore') }}</span>
-			<svg><use xlink:href="#arr"></use></svg>
+			<svg width="10" height="10"><use xlink:href="#arr"></use></svg>
 		</a>
 	</div>
 </template>

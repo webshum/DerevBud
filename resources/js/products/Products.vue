@@ -88,7 +88,7 @@ watch(() => ({ ...props.filters }), (newFilters, oldFilters) => {
 
 				<a class="btn-more">
 					<span>null</span>
-					<svg><use xlink:href="#arr"></use></svg>
+					<svg width="10" height="10"><use xlink:href="#arr"></use></svg>
 				</a>
 			</div>
 		</div>

@@ -7,6 +7,9 @@ const header = () => {
 	const header = document.getElementById('header');
 	const wrapper = document.querySelector('.wrapper');
 	const btnPhone = document.querySelector('.head-phones > a');
+	const nav = document.querySelector('.nav');
+	const menu = nav.querySelector('.menu');
+	const burger = header.querySelector('.btn-nav');
 
 	wrapper.style.paddingTop = `${header.offsetHeight}px`;
 
@@ -23,6 +26,31 @@ const header = () => {
 		drop.classList.toggle('open');
 		close.onclick = e => drop.classList.remove('open');
 	});
+
+	burger.addEventListener('click', e => {
+		document.body.classList.toggle('nav-active');
+	});
+
+	if (window.innerWidth < 991) {
+		const parentLi = nav.querySelectorAll('.menu-item-has-children');
+
+		for (const li of parentLi) {
+			li.querySelector('a').addEventListener('click', e => {
+				e.preventDefault();
+
+				li.classList.add('open');
+				menu.classList.add('active');
+			});
+
+			li.querySelector('.sub-menu li:first-child .prev').addEventListener('click', e => {
+				e.preventDefault();
+				console.log(li.closest('.menu'));
+
+				li.classList.remove('open');
+				menu.classList.remove('active');
+			});
+		}
+	}
 }
 
 const popup = () => {

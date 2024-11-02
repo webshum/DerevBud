@@ -1,4 +1,21 @@
 .form-filters {
+	position: relative;
+
+	.btn-close {
+		position: absolute;
+		top: 10px;
+		right: 10px;
+		background: none;
+		line-height: 0;
+		cursor: pointer;
+
+		svg {
+			width: 25px;
+			height: 25px;
+			fill: var(--c-orange);
+		}
+	}
+
 	.group {
 		padding: 15px 0;
 		border-bottom: 1px solid #f2f2f2;
@@ -62,18 +79,68 @@
 	}
 
 	label + label {margin-top: 5px;}
+
+	@media (max-width: 1200px) {
+		.label div {
+			gap: 0 5px;
+			padding: 5px 7px;
+			font-size: 12px;
+		}
+	}
+
+	@media (max-width: 991px) {
+		position: fixed;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		background: #fff;
+		z-index: 991;
+		padding: 0 20px;
+		box-shadow: 5px 0 20px rgba(0, 0, 0, .1);
+		width: 200px;
+		transform: translateX(-200px);
+		transition: transform 0.3s;
+		overflow-x: auto;
+
+		&.active {transform: translateX(0);}
+		.btn-close {display: block;}
+	}
+}
+
+@keyframes filter {100% {left: 0;}}
+
+.logged-in .form-filters.active {
+	top: 32px;
+	@media (max-width: 782px) {top: 46px;}
 }
 
 .grid-products {
 	display: grid;
 	grid-template-columns: 200px 1fr;
 	gap: 30px 30px;
+
+	@media (max-width: 1200px) {
+		grid-template-columns: 170px 1fr;
+		gap: 20px 20px;
+	}
+
+	@media (max-width: 991px) {
+		grid-template-columns: 1fr;
+	}
 }
 
 .all-products {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 	gap: 20px 20px;
+
+	@media (max-width: 1200px) {
+		gap: 15px 15px;
+	}
+
+	@media (max-width: 700px) {
+		grid-template-columns: 1fr;
+	}
 }
 
 @keyframes loading__animation {
@@ -127,6 +194,11 @@
 
 	.image {
 		display: block;
+		img {
+			width: 100%;
+			display: block;
+			object-fit: cover;
+		}
 	}
 
 	.flex {
@@ -145,7 +217,7 @@
 	.price {font-weight: 600;}
 
 	.foot {
-		padding: 5px 20px 10px 20px;
+		padding: 10px 20px 10px 20px;
 		display: flex;
 		flex-direction: column;
 	}
@@ -177,5 +249,9 @@
 	&:hover {
 		background: #eee;
 		.btn-more {opacity: 1;}
+	}
+
+	@media (max-width: 1200px) {
+		.foot {padding: 10px;}
 	}
 }

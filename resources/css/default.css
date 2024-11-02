@@ -39,9 +39,21 @@ a:hover {text-decoration: none;}
 	width: 100%;
 	margin: 0 auto;
 	padding: 0 15px;
+
+	@media (max-width: 1500px) {
+		max-width: 1000px;
+	} 
+
+	@media (max-width: 1200px) {
+		max-width: 900px;
+	}
 }
 
-.d-none {display: none;}
+.d-none {display: none !important;}
+@media (max-width: 991px) {
+	.h-991 {display: none !important;}
+	.s-991 {display: block !important;}
+}
 
 .main {
 	padding-top: 50px;

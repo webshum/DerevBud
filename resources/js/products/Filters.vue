@@ -1,8 +1,11 @@
 <script setup>
-import { ref, onMounted, defineProps } from 'vue';
+import { ref, onMounted, defineProps, onUnmounted } from 'vue';
 import { fetchAttributes } from '../helpers.js';
 
 const attributes = ref(null);
+const refFilters = ref(null);
+const showFilters = ref(false);
+const showButton = ref(false);
 const emit = defineEmits(['filters']);
 const perPage = import.meta.env.VITE_API_PAR_PAGE;
 
@@ -12,6 +15,12 @@ async function fetchAttributesData() {
 
 onMounted(() => {
 	fetchAttributesData();
+	handleResize();
+	window.addEventListener('resize', handleResize);
+});
+
+onUnmounted(() => {
+	window.removeEventListener('resize', handleResize);
 });
 
 const onChange = async (e) => {
@@ -36,15 +45,46 @@ const onChange = async (e) => {
 
 	emit('filters', data);
 }
+
+const handleResize = () => {
+	showButton.value = window.innerWidth < 991;
+	showFilters.value = window.innerWidth < 991;
+};
+
+function onBtnFilters(e) {
+	e.preventDefault();
+	showFilters.value = true;
+	refFilters.value.classList.toggle('active');
+}
+
+function onBtnFiltersClose(e) {
+	e.preventDefault();
+	showFilters.value = false;
+	refFilters.value.classList.remove('active');
+}
 </script>
 
 <template>
-	<form action="#" name="filters" class="form-filters">
+	<button class="btn-filters btn" v-if="showButton" @click.prevent="onBtnFilters">
+		{{ $t('filter') }}
+	</button>
+
+	<form 
+		action="#" 
+		name="filters" 
+		v-show="!showFiters" 
+		class="form-filters" 
+		ref="refFilters"
+	>
 		<input class="input-hidden" type="hidden" name="orderby" value="date">
 		<input class="input-hidden" type="hidden" name="order" value="desc">
 		<input class="input-hidden" type="hidden" name="catalog_visibility" value="catalog">
 		<input class="input-hidden" type="hidden" name="per_page" :value="perPage">
 		<input class="input-hidden" type="hidden" name="page" value="1">
+
+		<button class="btn-close" v-if="showButton" @click="onBtnFiltersClose">
+			<svg><use xlink:href="#close"></use></svg>
+		</button>
 
 		<div class="group" v-for="(attribute, key, count) in attributes" :key="count">
 			<label class="label" v-for="(term, index) in attribute.terms" :key="index">
