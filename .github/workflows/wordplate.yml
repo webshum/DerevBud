@@ -1,5 +1,4 @@
 name: Laravel Deployment
-
 on:
     push:
         branches:
@@ -13,12 +12,7 @@ jobs:
         steps:
             - name: Check out code
               uses: actions/checkout@v3
-
-            - name: Install Node.js
-              uses: actions/setup-node@v3
-              with:
-                node-version: '16'
-
+              
             - name: Setup PHP
               uses: shivammathur/setup-php@v2
               with:
@@ -33,11 +27,6 @@ jobs:
                 node -v
                 npm -v
 
-            - name: Build assets
-              run: |
-                npm install
-                npm run build
-
             - name: Deploy to development
               if: github.ref == 'refs/heads/develop'
               uses: appleboy/ssh-action@v1.0.3
@@ -48,9 +37,8 @@ jobs:
                   script: |
                       cd /home/webshum/web-shum.com.ua/derevbud
                       git pull origin develop --force
-                      # Copy the pre-built assets from the GitHub runner to the server
-                      rsync -a ./public/css/ /home/webshum/web-shum.com.ua/derevbud/public/css/
-                      rsync -a ./public/js/ /home/webshum/web-shum.com.ua/derevbud/public/js/
+                      npm install
+                      npm run build
 
             - name: Deploy to production
               if: github.ref == 'refs/heads/master'
@@ -62,9 +50,6 @@ jobs:
                   script: |
                       cd /home/maste103/master5.kiev.ua/www
                       git pull origin master --force
-                      # Copy the pre-built assets from the GitHub runner to the server
-                      rsync -a ./public/css/ /home/maste103/master5.kiev.ua/www/public/css/
-                      rsync -a ./public/js/ /home/maste103/master5.kiev.ua/www/public/js/
 
             - name: Send Telegram message
               if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/develop'
@@ -73,4 +58,4 @@ jobs:
                   to: "${{ secrets.TELEGRAM_ID }}"
                   token: "${{ secrets.TELEGRAM_TOKEN }}"
                   message: |
-                      Deployment successful for derevbud.com.ua on branch ${{ github.ref == 'refs/heads/develop' ? 'Develop' : 'Master' }}.
+                      Deployment successful derevbud.com.ua on branch ${{ github.ref }}
