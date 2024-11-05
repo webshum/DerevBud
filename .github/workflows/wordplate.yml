@@ -13,6 +13,11 @@ jobs:
             - name: Check out code
               uses: actions/checkout@v3
 
+            - name: Install Node.js
+              uses: actions/setup-node@v3
+              with:
+                node-version: '16'
+
             - name: Setup PHP
               uses: shivammathur/setup-php@v2
               with:
@@ -21,6 +26,11 @@ jobs:
             - name: Install dependencies
               run: |
                 composer install
+
+            - name: Check Node.js and npm version
+              run: |
+                node -v
+                npm -v
 
             - name: Deploy to development
               if: github.ref == 'refs/heads/develop'
