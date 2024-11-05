@@ -64,7 +64,6 @@ function custom_show_admin_bar( $show ) {
         return false;
     }
 }
-
 // Remove admin menu items.
 add_action('admin_init', function () {
     remove_menu_page('edit-comments.php'); // Comments
