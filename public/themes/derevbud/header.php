@@ -68,7 +68,7 @@
                         </div>
                     <?php endif; ?>
 
-                    <a href="#" class="btn"><?php pll_e('Consultation') ?></a>
+                    <a href="#" class="btn btn-popup" data-popup="callback-head"><?php pll_e('Consultation') ?></a>
                 </div>
 
                 <nav class="nav" role="navigation">
@@ -81,7 +81,7 @@
                     ?>
 
                     <div class="d-none s-991 foot">
-                        <a href="#" class="btn"><?php pll_e('Consultation') ?></a>
+                        <a href="#" class="btn btn-popup" data-popup="callback-head"><?php pll_e('Consultation') ?></a>
                     </div>
                 </nav>
 

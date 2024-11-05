@@ -32,6 +32,14 @@ img {
 a {color: var(--c-orange);}
 a:hover {text-decoration: none;}
 
+.wrapper {
+	padding-top: 83px;
+
+	@media (max-width: 991px) {
+		padding-top: 63px;
+	}
+}
+
 .tx-c {text-align: center;}
 .tx-r {text-align: right;}
 

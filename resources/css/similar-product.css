@@ -91,4 +91,19 @@
 	        }
 		}
 	}
+
+	@media (max-width: 991px) {
+		margin-top: 20px;
+
+		.products {gap: 15px 15px;}
+	}
+
+	@media (max-width: 767px) {
+		.products {grid-template-columns: 1fr 1fr;}
+	}
+
+	@media (max-width: 600px) {
+		.products {grid-template-columns: 1fr;}
+		h2 {font-size: 15px;}
+	}
 }

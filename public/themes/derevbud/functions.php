@@ -64,6 +64,7 @@ function custom_show_admin_bar( $show ) {
         return false;
     }
 }
+
 // Remove admin menu items.
 add_action('admin_init', function () {
     remove_menu_page('edit-comments.php'); // Comments
@@ -237,6 +238,99 @@ function get_attributes() {
     }
 
     return new WP_REST_Response($arr_attributes, 200);
+}
+
+function get_price_html_by_id($id) {
+    $price_product = get_post_meta($id, 'table_price_product_custom', true);
+    $count_product = get_post_meta($id, 'table_count_product_custom', true);
+
+    $arr_data_price = array();
+
+    if ($price_product) {
+        $count = 0;
+        foreach ($price_product as $price) {
+            $arr_data_price[$count]['price'] = $price;
+            $count++;
+        }
+    }
+
+    if ($count_product) {
+        $count = 0;
+        foreach ($count_product as $val) {
+            $arr_data_price[$count]['count'] = array_diff($val, array(null));
+            $count++;
+        }
+    }
+
+    $table_price = get_option('_cs_options');
+    $arr_price = array();
+
+    foreach ($arr_data_price as $data) {
+        if (!empty($data['price'])) {
+            foreach ($data['price'] as $key => $prc) {
+                foreach ($table_price['product_price_table'] as $price) {
+                    if (in_array($prc, $price)) {
+                        $arr_price[] = $price['derevo_price'] * $data['count'][$key];
+                    }
+                }
+            }
+        }
+        
+    }
+
+    $result = "<span class='price'>" . min($arr_price) . " <span class='currency-symbol'> грн</span></span>";
+
+    return $result;
+}
+
+/**
+ * ADD PAGE
+ */
+function add_admin_menu() {
+    add_menu_page(
+        'Вартість дерева',
+        'Вартість дерева',
+        'manage_options',
+        'price-tree',
+        'price_tree_settings_page',
+        'dashicons-location-alt'
+    );
+}
+add_action('admin_menu', 'add_admin_menu');
+
+function price_tree_settings_page() {
+    $price_product_table = get_option('_cs_options');
+
+    echo '<div class="wrap"><h1>Загальна таблиця цін</h1>';
+    echo '<form method="post" action="options.php">';
+
+    if (!empty($price_product_table['product_price_table'])) {
+        $prices = $price_product_table['product_price_table'];
+
+        foreach ($prices as $price) {
+            ?>
+            <div>
+                <h3><?php echo $price['title_price_urk']; ?></h3>
+                <div>
+                    <strong>Назва (укр)</strong>
+                    <input type="text" value="<?php echo $price['title_price_urk']; ?>">
+                </div>
+                <div>
+                    <strong>Назва (рус)</strong>
+                    <input type="text" value="<?php echo $price['title_price_rus']; ?>">
+                </div>
+                <div>
+                    <strong>Ціна</strong>
+                    <input type="text" value="<?php echo $price['derevo_price']; ?>">
+                </div>
+            </div>
+            <?php
+            dump($price);
+        }
+    }
+
+    echo '</form>';
+    echo '</div>';
 }
 
 // Ajax form
@@ -913,12 +1007,12 @@ function get_price_html() {
     $arr_price = array();
 
     foreach ($arr_data_price as $data) {
-
-        foreach ($data['price'] as $key => $prc) {
-
-            foreach ($table_price['product_price_table'] as $price) {
-                if (in_array($prc, $price)) {
-                    $arr_price[] = $price['derevo_price'] * $data['count'][$key];
+        if (!empty($data['price'])) {
+            foreach ($data['price'] as $key => $prc) {
+                foreach ($table_price['product_price_table'] as $price) {
+                    if (in_array($prc, $price)) {
+                        $arr_price[] = $price['derevo_price'] * $data['count'][$key];
+                    }
                 }
             }
         }

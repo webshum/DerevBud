@@ -52,21 +52,6 @@
 
 	@media (max-width: 767px) {
 		.head-contacts .btn {display: none;}
-		.head-phones .inner {
-			right: 0;
-			min-width: 210px;
-		}
-		.head-phones a {
-			outline: none;
-			user-select: none;
-		}
-		.head-phones a span {display: none;}
-		.head-phones a .arr {display: none;}
-		.head-phones a .phone {
-			display: inline-block;
-			width: 20px;
-			height: 20px;
-		}
 	}
 }
 
@@ -115,6 +100,7 @@
 			padding: 10px 15px 13px 15px;
 			text-align: center;
 			font-size: 13px;
+			font-weight: 500;
 			text-transform: uppercase;
 			text-decoration: none;
 			color: var(--color);
@@ -426,6 +412,24 @@
 		&:hover {
 			background: var(--c-orange);
 			color: #fff;
+		}
+	}
+
+	@media (max-width: 767px) {
+		.inner {
+			right: 0;
+			min-width: 210px;
+		}
+		a {
+			outline: none;
+			user-select: none;
+		}
+		a span {display: none;}
+		a .arr {display: none;}
+		a .phone {
+			display: inline-block !important;
+			width: 20px;
+			height: 20px;
 		}
 	}
 }
