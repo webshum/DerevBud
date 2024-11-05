@@ -12,7 +12,7 @@ jobs:
         steps:
             - name: Check out code
               uses: actions/checkout@v3
-              
+
             - name: Setup PHP
               uses: shivammathur/setup-php@v2
               with:
@@ -21,11 +21,6 @@ jobs:
             - name: Install dependencies
               run: |
                 composer install
-
-            - name: Check Node.js and npm version
-              run: |
-                node -v
-                npm -v
 
             - name: Deploy to development
               if: github.ref == 'refs/heads/develop'
@@ -37,8 +32,6 @@ jobs:
                   script: |
                       cd /home/webshum/web-shum.com.ua/derevbud
                       git pull origin develop --force
-                      npm install
-                      npm run build
 
             - name: Deploy to production
               if: github.ref == 'refs/heads/master'
