@@ -176,7 +176,7 @@ const fetchProducts = async (data) => {
 			return json;
 		}
 	} catch (error) {
-		console.log('Fetch error: ', error);
+		console.log('Fetch error get_products: ', error);
 	}
 }
 
@@ -189,7 +189,7 @@ const fetchAttributes = async () => {
 			return json;
 		}
 	} catch (error) {
-		console.error('Fetch error: ', error);
+		console.error('Fetch error get_attributes: ', error);
 	}
 }
 
@@ -202,7 +202,7 @@ const fetchPrice = async (id) => {
 			return json;
 		}
 	} catch (error) {
-		console.error('Fetch error: ', error);
+		console.error('Fetch error get_price: ', error);
 	}
 }
 
