@@ -117,11 +117,9 @@ const formAjax = () => {
 
 function submitForm(form, data) {
     form.classList.add('preload');
-    const submitName = form.querySelector('[type="submit"]').value;
     const popupOverlay = document.querySelector('.popup-overlay');
     const popupSuccess = document.querySelector('.popup-success');
 
-    form.querySelector('[type="submit"]').value = '...';
     form.classList.add('form-preloader');
 
     const xhr = new XMLHttpRequest();
@@ -133,7 +131,6 @@ function submitForm(form, data) {
         if (xhr.readyState === 4 && xhr.status === 200) {
             form.classList.remove('preload');
             form.reset();
-            form.querySelector('[type="submit"]').value = submitName;
 
             if (document.querySelector('.popup.active') != null) {
                 form.closest('.popup.active').classList.remove('active');
