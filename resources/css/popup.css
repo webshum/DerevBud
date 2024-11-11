@@ -113,3 +113,10 @@
         width: 95%;
     }
 }
+
+.popup.popup-success {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
