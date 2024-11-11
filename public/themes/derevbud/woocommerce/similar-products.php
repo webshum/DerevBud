@@ -19,6 +19,49 @@ $current_price_product = (int)$current_price_product;
 
 ?>
 
+<div class="similar-product">
+    <div class="flex">
+        <h2><?php pll_e('Похожие по цене'); ?></h2>
+    </div>
+
+    <div class="products">
+        <?php if ($similar_in_price->have_posts()) :  ?>
+            <?php $count = 0; $count_two = 0; while ($similar_in_price->have_posts()) : $similar_in_price->the_post(); ?>
+                <?php
+                    global $post;
+                    $current_price_loop = ($product->get_price_html()) ? $product->get_price_html() : get_price_html();
+                    $current_price_loop = preg_replace("~[^0-9]+~", '', $current_price_loop);
+                    $current_price_loop = (int)$current_price_loop;
+                ?>
+                
+                <?php if (($current_price_loop > $current_price_product) && ($current_price_loop < $current_price_product + 130000) or ($current_price_loop < $current_price_product) && ($current_price_loop + 130000 > $current_price_product ) ) : ?>
+                    <div class="box-product">
+                        <a class="image" href="<?php the_permalink(); ?>">
+                            <?php the_post_thumbnail(); ?>        
+                        </a>
+
+                        <div class="foot">
+                            <h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
+                            
+                            <div class="price">
+                                <?php echo (!empty($price)) ? $price . ' грн.' : get_price_html(); ?>
+                            </div>
+
+                            <a href="<?php the_permalink(); ?>">
+                                <svg><use xlink:href="#arr"></use></svg>
+                            </a>
+                        </div>
+                    </div>
+                    <?php if ($count >= 20) break; ?>
+                    <?php $count++; ?>
+                
+                <?php endif; ?>
+
+            <?php endwhile; ?>
+        <?php endif; ?>
+    </div>
+</div>
+
 <!-- Проекти з категорій -->
 
 <?php 
@@ -68,9 +111,7 @@ $popular_product = new WP_Query(array(
                     <div class="foot">
                         <h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
 
-                        <div class="price">
-                            <?php echo get_price_html_by_id(get_the_ID()); ?>
-                        </div>
+                        <?php echo get_price_html_by_id(get_the_ID()); ?>
 
                         <a href="<?php the_permalink(); ?>">
                             <svg><use xlink:href="#arr"></use></svg>
@@ -113,9 +154,7 @@ $popular_product = new WP_Query(array(
                     <div class="foot">
                         <h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
 
-                        <div class="price">
-                            <?php echo get_price_html_by_id(get_the_ID()); ?>
-                        </div>
+                        <?php echo get_price_html_by_id(get_the_ID()); ?>
 
                         <a href="<?php the_permalink(); ?>">
                             <svg><use xlink:href="#arr"></use></svg>
@@ -157,9 +196,7 @@ $popular_product = new WP_Query(array(
                     <div class="foot">
                        <h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
 
-                        <div class="price">
-                            <?php echo get_price_html_by_id(get_the_ID()); ?>
-                        </div>
+                        <?php echo get_price_html_by_id(get_the_ID()); ?>
 
                         <a href="<?php the_permalink(); ?>">
                             <svg><use xlink:href="#arr"></use></svg>

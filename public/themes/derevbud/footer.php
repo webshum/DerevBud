@@ -1,3 +1,35 @@
+<div class="reviews-client">
+	<div class="center">
+	    <?php
+	        $rewiews_clients =  new WP_Query(array(
+	          'tag' => 'video_otzyvy_klientov'
+	        ));
+	    ?>
+
+	    <?php if($rewiews_clients->have_posts()) : ?>
+		    <ul>
+		        <?php while ($rewiews_clients->have_posts()) : $rewiews_clients->the_post(); ?>
+		            <li>
+		                <div>
+		                    <div class="tags"><?php echo the_tags('',' ',''); ?></div>
+
+							<h2>
+								<a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+							</h2>
+
+		                    <div class="date"><?php the_date(); ?></div>
+		                </div>
+
+		                <a class="thumb" href="<?php the_permalink(); ?>">
+		                	<?php the_post_thumbnail('full'); ?>		
+		                </a>
+		            </li>
+		        <?php endwhile; ?>
+		    </ul>
+	    <?php endif; ?>
+	</div>
+</div>
+
 <footer id="footer">
 	<div class="center">
 		<div class="footer-col">

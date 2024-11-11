@@ -31,25 +31,26 @@ const header = () => {
 		document.body.classList.toggle('nav-active');
 	});
 
-	if (window.innerWidth < 991) {
-		const parentLi = nav.querySelectorAll('.menu-item-has-children');
+	const parentLi = nav.querySelectorAll('.menu-item-has-children');
 
-		for (const li of parentLi) {
-			li.querySelector('a').addEventListener('click', e => {
+	for (const li of parentLi) {
+		li.querySelector('a').addEventListener('click', e => {
+			if (window.innerWidth < 991) {
 				e.preventDefault();
 
 				li.classList.add('open');
 				menu.classList.add('active');
-			});
+			}
+		});
 
-			li.querySelector('.sub-menu li:first-child .prev').addEventListener('click', e => {
+		li.querySelector('.sub-menu li:first-child .prev').addEventListener('click', e => {
+			if (window.innerWidth < 991) {
 				e.preventDefault();
-				console.log(li.closest('.menu'));
 
 				li.classList.remove('open');
 				menu.classList.remove('active');
-			});
-		}
+			}
+		});
 	}
 }
 

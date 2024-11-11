@@ -86,6 +86,8 @@ function onBtnFiltersClose(e) {
 			<svg><use xlink:href="#close"></use></svg>
 		</button>
 
+		<h3>{{ $t('filter') }}</h3>
+
 		<div class="group" v-for="(attribute, key, count) in attributes" :key="count">
 			<label class="label" v-for="(term, index) in attribute.terms" :key="index">
 				<input 
