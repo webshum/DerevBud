@@ -41,7 +41,7 @@
                             </a>
 
                             <div class="inner">
-                                <form action="#">
+                                <form action="#" class="ajax-form">
                                     <h4><?php pll_e('Call us'); ?></h4>
 
                                     <?php foreach ($phones as $phone) : ?>
