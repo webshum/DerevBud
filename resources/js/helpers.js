@@ -135,8 +135,7 @@ function submitForm(form, data) {
             form.querySelector('[type="submit"]').value = submitName;
 
             if (document.querySelector('.popup.active') != null) {
-            	console.log(document.querySelector('.popup.active'));
-                document.querySelector('.popup.active').classList.remove();
+                form.closest('.popup').classList.remove();
             }
 
             popupOverlay.classList.add('active');
