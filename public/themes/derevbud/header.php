@@ -53,7 +53,7 @@
 
                                     <h4><?php pll_e('Or live number'); ?></h4>
 
-                                    <input type="tel" name="tel" placeholder="+380" required> 
+                                    <input type="tel" name="phone" placeholder="+380" required> 
 
                                     <div class="foot">
                                         <button class="btn-back">

@@ -135,6 +135,7 @@ function submitForm(form, data) {
             form.querySelector('[type="submit"]').value = submitName;
 
             if (document.querySelector('.popup.active') != null) {
+            	console.log(document.querySelector('.popup.active'));
                 document.querySelector('.popup.active').classList.remove();
             }
 
@@ -143,7 +144,7 @@ function submitForm(form, data) {
             
             popupSuccess.querySelector('.popup-close').addEventListener('click', e => {
             	e.preventDefault();
-            	
+
             	popupOverlay.classList.remove('active');
             	popupSuccess.classList.remove('active');
             });
