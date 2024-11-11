@@ -122,6 +122,7 @@ function submitForm(form, data) {
     const popupSuccess = document.querySelector('.popup-success');
 
     form.querySelector('[type="submit"]').value = '...';
+    form.classList.add('form-preloader');
 
     const xhr = new XMLHttpRequest();
     xhr.open('POST', ajax_url);
@@ -135,7 +136,6 @@ function submitForm(form, data) {
             form.querySelector('[type="submit"]').value = submitName;
 
             if (document.querySelector('.popup.active') != null) {
-            	console.log(form);
                 form.closest('.popup.active').classList.remove('active');
             }
 
@@ -148,6 +148,8 @@ function submitForm(form, data) {
             	popupOverlay.classList.remove('active');
             	popupSuccess.classList.remove('active');
             });
+
+            form.classList.remove('form-preloader');
         }
     }
 
