@@ -891,7 +891,11 @@ function woo_add_custom_functionality() {
         <div class="price-block">
             <div class="inner">
                 <div class="img">
-                    <img src="<?php echo wp_get_attachment_url($val['id']); ?>" alt="">
+                    <?php if (!empty(wp_get_attachment_url($val['id']))) : ?>
+                        <img src="<?php echo wp_get_attachment_url($val['id']); ?>" alt="">
+                    <?php else : ?>
+                        <img src="<?php echo bloginfo('template_url') ?>/img/no-image.png" alt="">
+                    <?php endif; ?>
                     <a href="<?php echo wp_get_attachment_url($val['id']); ?>" class="upload_image">Зображення</a>
                 </div>
                 <div class="right">

@@ -28,12 +28,6 @@ onMounted(() => {
 		class="image" 
 		v-if="product.images[0] !== null"
 	>	
-	{{ console.log(product.images) }}
-		<!-- <picture>
-			<source :srcset="`${product.images[0].thumbnail}`" type="image/webp">
-			<img :src="`${product.images[0].thumbnail}`" loading="lazy" alt="">
-		</picture> -->
-
 		<img :src="`${product.images[0].thumbnail}`" loading="lazy" alt="">
 	</a>
 
