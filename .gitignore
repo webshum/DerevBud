@@ -8,6 +8,8 @@
 !/public/plugins/index.php
 /public/upgrade
 /public/uploads
+/public/compressx
+/public/compressx-nextgen
 /public/wordpress
 /vendor
 auth.json
