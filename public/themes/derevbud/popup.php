@@ -48,7 +48,7 @@
         </div>
 
         <div class="label">
-            <input type="tel" name="phone" required placeholder="<?php pll_e('Ваш телефон'); ?>"/>
+            <input type="tel" name="phone" required placeholder="<?php pll_e('+380_________'); ?>"/>
         </div>
 
         <div class="tx-r">
