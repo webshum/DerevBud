@@ -479,11 +479,11 @@ function send_form() {
 
     // $to = get_option('admin_email');
     $to = "shumjachi@gmail.com";
-    $subject = 'Повідомлення з derevbud.com.ua';
+    $subject = 'Повідомлення з derevbud.web-shum.com.ua';
 
     $body = '<html>
         <head>
-          <title>Повідомлення з derevbud.com.ua</title>
+          <title>Повідомлення з derevbud.web-shum.com.ua</title>
         </head>
         <body>';
 
@@ -498,8 +498,8 @@ function send_form() {
     $body .= '</body></html>';
     
     $headers = [
-        'From' => 'derevbud.com.ua',
-        'Reply-To' => 'derevbud.com.ua',
+        'From' => 'derevbud.web-shum.com.ua',
+        'Reply-To' => 'derevbud.web-shum.com.ua',
         'Content-Type' => 'text/html; charset=UTF-8'
     ];
      
