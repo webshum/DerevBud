@@ -284,7 +284,7 @@ function get_price_html_by_id($id) {
 }
 
 /**
- * ADD PAGE
+ * ADD PAGE PRICE
  */
 function add_admin_menu() {
     add_menu_page(
@@ -293,44 +293,157 @@ function add_admin_menu() {
         'manage_options',
         'price-tree',
         'price_tree_settings_page',
-        'dashicons-location-alt'
+        'dashicons-menu-alt3'
     );
 }
 add_action('admin_menu', 'add_admin_menu');
+
+function price_tree_register_settings() {
+    register_setting('price_tree_options_group', '_cs_options');
+}
+add_action('admin_init', 'price_tree_register_settings');
 
 function price_tree_settings_page() {
     $price_product_table = get_option('_cs_options');
 
     echo '<div class="wrap"><h1>Загальна таблиця цін</h1>';
     echo '<form method="post" action="options.php">';
+    settings_fields('price_tree_options_group');
+    do_settings_sections('price_tree_options_group');
 
     if (!empty($price_product_table['product_price_table'])) {
         $prices = $price_product_table['product_price_table'];
 
-        foreach ($prices as $price) {
+        echo "<div class='js-inputs-wrap'>";
+
+        foreach ($prices as $index => $price) {
             ?>
-            <div>
-                <h3><?php echo $price['title_price_urk']; ?></h3>
+
+            <div class="js-inputs" data-index="<?php echo $index ?>">
+                <h3><?php echo esc_html($price['title_price_urk']); ?></h3>
                 <div>
                     <strong>Назва (укр)</strong>
-                    <input type="text" value="<?php echo $price['title_price_urk']; ?>">
+                    <input type="text" name="_cs_options[product_price_table][<?php echo $index; ?>][title_price_urk]" value="<?php echo esc_attr($price['title_price_urk']); ?>">
                 </div>
                 <div>
                     <strong>Назва (рус)</strong>
-                    <input type="text" value="<?php echo $price['title_price_rus']; ?>">
+                    <input type="text" name="_cs_options[product_price_table][<?php echo $index; ?>][title_price_rus]" value="<?php echo esc_attr($price['title_price_rus']); ?>">
                 </div>
                 <div>
                     <strong>Ціна</strong>
-                    <input type="text" value="<?php echo $price['derevo_price']; ?>">
+                    <input type="text" name="_cs_options[product_price_table][<?php echo $index; ?>][derevo_price]" value="<?php echo esc_attr($price['derevo_price']); ?>">
+                </div>
+
+                <div class="remove">
+                    <button type="button" class="button js-remove-price">Видалити</button>
                 </div>
             </div>
+
             <?php
-            dump($price);
         }
+
+        echo "</div>";
     }
 
+    echo "<div style='margin-top: 30px; display: flex; gap: 0 15px;'>";
+    echo '<button name="add" class="button js-add-price">Додати</button>';
+    echo '<input type="submit" name="save" class="button button-primary" value="Зберегти" />';
+    echo "</div>";
     echo '</form>';
     echo '</div>';
+
+    ?>
+    <style>
+        .js-inputs-wrap {
+            font-size: 13px;
+            font-family: Tahoma, sans-serif;
+            max-width: 500px;
+        }
+        .js-inputs {
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #ccc;
+        }
+        .js-inputs h3 {
+            font-size: 15px;
+            font-weight: 500;
+        }
+        .js-inputs > div {
+            display: flex;
+            align-items: center;
+        }
+        .js-inputs > div + div {margin-top: 10px;}
+        .js-inputs > div strong {
+            min-width: 100px;
+            font-weight: 500;
+        }
+        .js-inputs > div input {
+            width: 100%;
+            color: #656565;
+            font-size: 13px;
+        }
+        .js-inputs > div input::placeholder {color: #656565;}
+        .js-inputs .remove {
+            display: flex;
+            justify-content: end;
+            margin-top: 15px;
+        }
+    </style>
+
+    <script>
+        window.onload = () => {
+            const wrap = document.querySelector('.js-inputs-wrap');
+            const btnAdd = document.querySelector('.js-add-price');
+
+            btnAdd.addEventListener('click', e => {
+                e.preventDefault();
+
+                let index = Array.from(wrap.querySelectorAll('.js-inputs'))
+                .map(input => Number(input.dataset.index))
+                .reduce((max, current) => Math.max(max, current), 0) + 1;
+
+                wrap.insertAdjacentHTML('beforeend', `
+                    <div class="js-inputs" data-index="${index}">
+                        <h3>Новий елемент</h3>
+                        <div>
+                            <strong>Назва (укр)</strong>
+                            <input type="text" name="_cs_options[product_price_table][${index}][title_price_urk]">
+                        </div>
+                        <div>
+                            <strong>Назва (рус)</strong>
+                            <input type="text" name="_cs_options[product_price_table][${index}][title_price_rus]">
+                        </div>
+                        <div>
+                            <strong>Ціна</strong>
+                            <input type="text" name="_cs_options[product_price_table][${index}][derevo_price]">
+                        </div>
+                        <div class="remove">
+                            <button type="button" class="button js-remove-price">Видалити</button>
+                        </div>
+                    </div>
+                `);
+
+                addRemoveEvent();
+            });
+
+            function addRemoveEvent() {
+                const removeButtons = document.querySelectorAll('.js-remove-price');
+                removeButtons.forEach(button => {
+                    button.removeEventListener('click', handleRemove);
+                    button.addEventListener('click', handleRemove);
+                });
+            }
+
+            function handleRemove(e) {
+                e.preventDefault();
+                e.target.closest('.js-inputs').remove();
+            }
+
+            addRemoveEvent();
+        };
+    </script>
+
+    <?php
 }
 
 // Ajax form

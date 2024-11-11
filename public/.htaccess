@@ -8,3 +8,73 @@
     RewriteRule . /index.php [L]
 </IfModule>
 # END WordPress
+
+# BEGIN ShortPixelWebp
+# Директивы (строки) между `BEGIN ShortPixelWebp` и `END ShortPixelWebp`
+# созданы автоматически и подлежат изменению только через фильтры WordPress.
+# Сделанные вручную изменения между этими маркерами будут перезаписаны.
+
+# END ShortPixelWebp
+# BEGIN CompressX
+# Директивы (строки) между `BEGIN CompressX` и `END CompressX`
+# созданы автоматически и подлежат изменению только через фильтры WordPress.
+# Сделанные вручную изменения между этими маркерами будут перезаписаны.
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteOptions Inherit
+RewriteCond %{QUERY_STRING} original$
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule . - [L]
+RewriteCond %{HTTP_ACCEPT} image/avif
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteCond %{DOCUMENT_ROOT}/compressx-nextgen/$1.avif -f [OR]
+RewriteCond %{DOCUMENT_ROOT}/compressx-nextgen/$1.avif -f
+RewriteRule (.+)\.avif /compressx-nextgen/$1.avif [NC,T=image/avif,L]
+RewriteCond %{HTTP_ACCEPT} image/avif
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteCond %{DOCUMENT_ROOT}/compressx-nextgen/$1.webp.avif -f [OR]
+RewriteCond %{DOCUMENT_ROOT}/compressx-nextgen/$1.webp.avif -f
+RewriteRule (.+)\.webp /compressx-nextgen/$1.webp.avif [NC,T=image/avif,L]
+RewriteCond %{HTTP_ACCEPT} image/avif
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteCond %{DOCUMENT_ROOT}/compressx-nextgen/$1.jpg.avif -f [OR]
+RewriteCond %{DOCUMENT_ROOT}/compressx-nextgen/$1.jpg.avif -f
+RewriteRule (.+)\.jpg$ /compressx-nextgen/$1.jpg.avif [NC,T=image/avif,L]
+RewriteCond %{HTTP_ACCEPT} image/avif
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteCond %{DOCUMENT_ROOT}/compressx-nextgen/$1.png.avif -f [OR]
+RewriteCond %{DOCUMENT_ROOT}/compressx-nextgen/$1.png.avif -f
+RewriteRule (.+)\.png$ /compressx-nextgen/$1.png.avif [NC,T=image/avif,L]
+RewriteCond %{HTTP_ACCEPT} image/avif
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteCond %{DOCUMENT_ROOT}/compressx-nextgen/$1.jpeg.avif -f [OR]
+RewriteCond %{DOCUMENT_ROOT}/compressx-nextgen/$1.jpeg.avif -f
+RewriteRule (.+)\.jpeg$ /compressx-nextgen/$1.jpeg.avif [NC,T=image/avif,L]
+RewriteCond %{HTTP_ACCEPT} image/webp
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteCond %{DOCUMENT_ROOT}/compressx-nextgen/$1.webp -f [OR]
+RewriteCond %{DOCUMENT_ROOT}/compressx-nextgen/$1.webp -f
+RewriteRule (.+)\.webp /compressx-nextgen/$1.webp [NC,T=image/webp,L]
+RewriteCond %{HTTP_ACCEPT} image/webp
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteCond %{DOCUMENT_ROOT}/compressx-nextgen/$1.jpg.webp -f [OR]
+RewriteCond %{DOCUMENT_ROOT}/compressx-nextgen/$1.jpg.webp -f
+RewriteRule (.+)\.jpg$ /compressx-nextgen/$1.jpg.webp [NC,T=image/webp,L]
+RewriteCond %{HTTP_ACCEPT} image/webp
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteCond %{DOCUMENT_ROOT}/compressx-nextgen/$1.png.webp -f [OR]
+RewriteCond %{DOCUMENT_ROOT}/compressx-nextgen/$1.png.webp -f
+RewriteRule (.+)\.png$ /compressx-nextgen/$1.png.webp [NC,T=image/webp,L]
+RewriteCond %{HTTP_ACCEPT} image/webp
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteCond %{DOCUMENT_ROOT}/compressx-nextgen/$1.jpeg.webp -f [OR]
+RewriteCond %{DOCUMENT_ROOT}/compressx-nextgen/$1.jpeg.webp -f
+RewriteRule (.+)\.jpeg$ /compressx-nextgen/$1.jpeg.webp [NC,T=image/webp,L]
+</IfModule>
+<IfModule mod_headers.c>
+<FilesMatch "(?i)\.(jpg|png|webp|jpeg)(\.(webp|avif))?$">
+Header always set Cache-Control "private"
+Header append Vary "Accept"
+</FilesMatch>
+</IfModule>
+# END CompressX

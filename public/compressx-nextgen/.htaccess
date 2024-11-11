@@ -1,0 +1,16 @@
+
+# BEGIN CompressX Webp
+# Директивы (строки) между `BEGIN CompressX Webp` и `END CompressX Webp`
+# созданы автоматически и подлежат изменению только через фильтры WordPress.
+# Сделанные вручную изменения между этими маркерами будут перезаписаны.
+<IfModule mod_mime.c>
+AddType image/avif .avif
+AddType image/webp .webp
+</IfModule>
+<IfModule mod_expires.c>
+ExpiresActive On
+ExpiresByType image/avif "access plus 1 year"
+ExpiresByType image/webp "access plus 1 year"
+</IfModule>
+Options -Indexes
+# END CompressX Webp
