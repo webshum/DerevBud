@@ -140,7 +140,7 @@ function submitForm(form, data) {
 
             popupOverlay.classList.add('active');
             popupSuccess.classList.add('active');
-
+            console.log(popupOverlay);
             popup();
         }
     }
