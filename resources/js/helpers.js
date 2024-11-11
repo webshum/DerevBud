@@ -118,6 +118,8 @@ const formAjax = () => {
 function submitForm(form, data) {
     form.classList.add('preload');
     const submitName = form.querySelector('input[type="submit"]').value;
+    const popupOverlay = document.querySelector('.popup-overlay');
+    const popupSuccess = document.querySelector('.popup-success');
 
     form.querySelector('input[type="submit"]').value = '...';
 
@@ -131,6 +133,15 @@ function submitForm(form, data) {
             form.classList.remove('preload');
             form.reset();
             form.querySelector('input[type="submit"]').value = submitName;
+
+            if (document.querySelector('.popup.active') != null) {
+                document.querySelector('.popup.active').classList.remove();
+            }
+
+            popupOverlay.classList.add('active');
+            popupSuccess.classList.add('active');
+
+            popup();
         }
     }
 
