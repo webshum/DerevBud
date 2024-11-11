@@ -121,7 +121,7 @@ function submitForm(form, data) {
     const popupOverlay = document.querySelector('.popup-overlay');
     const popupSuccess = document.querySelector('.popup-success');
 
-    form.querySelector('input[type="submit"]').value = '...';
+    form.querySelector('[type="submit"]').value = '...';
 
     const xhr = new XMLHttpRequest();
     xhr.open('POST', ajax_url);
