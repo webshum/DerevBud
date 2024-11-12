@@ -201,10 +201,14 @@ function get_price($request) {
     $arr_price = array();
 
     foreach ($arr_data_price as $data) {
-        foreach ($data['price'] as $key => $prc) {
-            foreach ($table_price['product_price_table'] as $price) {
-                if (in_array($prc, $price)) {
-                    $arr_price[] = $price['derevo_price'] * $data['count'][$key];
+        if (!empty($data['price']) && is_array($data['price'])) {
+            foreach ($data['price'] as $key => $prc) {
+                if (!empty($table_price['product_price_table']) && is_array($table_price['product_price_table'])) {
+                    foreach ($table_price['product_price_table'] as $price) {
+                        if (in_array($prc, $price)) {
+                            $arr_price[] = $price['derevo_price'] * $data['count'][$key];
+                        }
+                    }
                 }
             }
         }

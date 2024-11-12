@@ -216,6 +216,7 @@ const fetchPrice = async (id) => {
 
 		if (response.ok) {
 			const json = await response.json();
+			
 			return json;
 		}
 	} catch (error) {

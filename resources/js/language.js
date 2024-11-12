@@ -20,8 +20,6 @@ const messages = {
 	}
 };
 
-console.log(locale);
-
 const i18n = createI18n({
 	locale: locale,
 	messages,
