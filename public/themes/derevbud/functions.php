@@ -911,7 +911,7 @@ function woo_add_custom_functionality() {
 
                 <?php $count_price = 0; foreach ($price_product_table['product_price_table'] as $price_key) : ?>
 
-                    <?php if (in_array($price_key['title_price_urk'], $val['price'])) : ?>
+                    <?php if (!empty($val['price']) && in_array($price_key['title_price_urk'], $val['price'])) : ?>
                         <div class="grop-price">
                             <label class="title">
                                 <input type="checkbox" name="table_price_product_custom[<?php echo $count; ?>][<?php echo $count_price; ?>]" value="<?php echo $price_key['title_price_urk']; ?>" checked>
