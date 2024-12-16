@@ -30,7 +30,7 @@ jobs:
                   username: "${{ secrets.USERNAME }}"
                   password: "${{ secrets.PASSWORD }}"
                   script: |
-                      cd /home/webshum/web-shum.com.ua/derevbud
+                      cd /home/blablapr/derevbud.com.ua/dev
                       git pull origin develop --force
 
             - name: Deploy to production
