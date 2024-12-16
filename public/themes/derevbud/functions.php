@@ -481,8 +481,8 @@ function send_form() {
     if (!empty($_POST['slug'])) $slug = $_POST['slug'];
     if (!empty($_POST['link'])) $link = $_POST['link'];
 
-    // $to = get_option('admin_email');
-    $to = "shumjachi@gmail.com";
+    $to = get_option('admin_email');
+    // $to = "shumjachi@gmail.com";
     $subject = 'Повідомлення з derevbud.com.ua';
 
     $body = '<html>
