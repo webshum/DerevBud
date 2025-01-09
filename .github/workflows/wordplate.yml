@@ -41,7 +41,7 @@ jobs:
                   username: "${{ secrets.USERNAME }}"
                   password: "${{ secrets.PASSWORD }}"
                   script: |
-                      cd /home/maste103/master5.kiev.ua/www
+                      cd /home/blablapr/derevbud.com.ua/www
                       git pull origin master --force
 
             - name: Send Telegram message
