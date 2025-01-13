@@ -2,7 +2,7 @@ const URL = import.meta.env.VITE_API_URL;
 const API_URL_GET_PRODUCTS = URL + '/wp-json/wc/store/v1/products';
 const API_URL_GET_ATTRIBUTES = URL + '/wp-json/derevbud/v1/attributes';
 const API_URL_GET_PRICE = URL + '/wp-json/derevbud/v1/price';
-console.log(URL);
+
 const header = () => {
 	const header = document.getElementById('header');
 	const wrapper = document.querySelector('.wrapper');
@@ -185,7 +185,7 @@ const fetchProducts = async (data) => {
 	try {
 		const params = new URLSearchParams(data).toString();
 		const url = `${API_URL_GET_PRODUCTS}?${params}`;
-
+		console.log(url);
 		const response = await fetch(url);
 
 		if (response.ok) {

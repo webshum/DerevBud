@@ -11,11 +11,16 @@ const props = defineProps({
 	filters: {
 		type: Object,
 		default: {}
+	},
+	catId: {
+		type: String,
+		default: 0
 	}
 });
 const query = ref({
 	per_page: perPage,
-	page: 1
+	page: 1,
+	category: props.catId,
 });
 
 async function fetchProductsData(query) {

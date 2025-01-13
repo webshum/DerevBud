@@ -2,13 +2,21 @@
 
 <div class="wrapper" id="archive-products">
 	<div class="center main">
-        <archive-products></archive-products>
-
-		<?php
-            $current_page =  get_query_var( 'paged' );
+		<?php 
 			$category = get_queried_object();
 			$cat_id = $category->term_id;
 			$title =  get_term_meta( $cat_id, 'title', 1 );
+			$json = json_encode($category);
+		?>
+
+		<script type="text/javascript">
+		    window.category = <?php echo json_encode($category); ?>;
+		</script>
+
+        <archive-products :cat-id="'<?php echo $cat_id ?>'"></archive-products>
+
+		<?php
+            $current_page =  get_query_var( 'paged' );
 
             if ( ($current_page != 0) && ($current_page != 1) ) {
                 $title = $title . " - страница " . $current_page;

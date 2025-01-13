@@ -1,9 +1,19 @@
 <script setup>
-import { ref, watch } from 'vue';
+import { ref, watch, defineProps } from 'vue';
 import Filters from '../products/Filters.vue';
 import Products from '../products/Products.vue';
 
 const filters = ref([]);
+
+const props = defineProps({
+	catId: {
+		type: String,
+		default: 0,
+		required: true
+	}
+});
+
+console.log(props.catId);
 
 function onFilters(event) {
 	filters.value = event;
@@ -12,7 +22,7 @@ function onFilters(event) {
 
 <template>
 	<div class="grid-products">
-		<Filters @filters="onFilters"/>
-		<Products :filters="filters"/>
+		<Filters @filters="onFilters" :cat-id="catId"/>
+		<Products :filters="filters" :cat-id="catId"/>
 	</div>
 </template>
