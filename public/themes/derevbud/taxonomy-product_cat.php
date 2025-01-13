@@ -7,13 +7,11 @@
 			$cat_id = $category->term_id;
 			$title =  get_term_meta( $cat_id, 'title', 1 );
 			$json = json_encode($category);
+
+			$id = ($cat_id != 89 && $cat_id != 183) ? $cat_id : 0;
 		?>
 
-		<script type="text/javascript">
-		    window.category = <?php echo json_encode($category); ?>;
-		</script>
-
-        <archive-products :cat-id="'<?php echo $cat_id ?>'"></archive-products>
+        <archive-products :cat-id="'<?php echo $id ?>'"></archive-products>
 
 		<?php
             $current_page =  get_query_var( 'paged' );

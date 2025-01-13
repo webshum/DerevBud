@@ -8,12 +8,9 @@ const filters = ref([]);
 const props = defineProps({
 	catId: {
 		type: String,
-		default: 0,
-		required: true
+		default: 0
 	}
 });
-
-console.log(props.catId);
 
 function onFilters(event) {
 	filters.value = event;

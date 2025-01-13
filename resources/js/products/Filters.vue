@@ -11,8 +11,7 @@ const perPage = import.meta.env.VITE_API_PAR_PAGE;
 const props = defineProps({
 	catId: {
 		type: String,
-		default: 0,
-		required: true
+		default: 0
 	}
 });
 
@@ -88,7 +87,7 @@ function onBtnFiltersClose(e) {
 		<input class="input-hidden" type="hidden" name="catalog_visibility" value="catalog">
 		<input class="input-hidden" type="hidden" name="per_page" :value="perPage">
 		<input class="input-hidden" type="hidden" name="page" value="1">
-		<input class="input-hidden" type="hidden" name="category" :value="catId">
+		<input v-if="Number(catId)" class="input-hidden" type="hidden" name="category" :value="catId">
 
 		<button class="btn-close" v-if="showButton" @click="onBtnFiltersClose">
 			<svg><use xlink:href="#close"></use></svg>

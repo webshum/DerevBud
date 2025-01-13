@@ -19,9 +19,12 @@ const props = defineProps({
 });
 const query = ref({
 	per_page: perPage,
-	page: 1,
-	category: props.catId,
+	page: 1
 });
+
+if (Number(props.catId)) {
+	query.value.category = props.catId;
+}
 
 async function fetchProductsData(query) {
 	isLoading.value = true;
