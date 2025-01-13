@@ -44,7 +44,7 @@ function onImageLoad() {
 async function onScroll() {
 	const documentHeight = document.documentElement.scrollHeight;
 
-	if (scrollY + window.innerHeight >= documentHeight - 500 && !isLoading.value) {
+	if (scrollY + window.innerHeight >= documentHeight - 1000 && !isLoading.value) {
         query.value.page++;
 
         if (query.value.offset != undefined) {
