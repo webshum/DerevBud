@@ -80,4 +80,24 @@ watch(() => ({ ...props.filters }), (newFilters, oldFilters) => {
 			<Product :product="product"/>
 		</div>
 	</div>
+
+	<div class="all-products is-loading" v-else>
+		<div class="product" v-for="item in 6">
+			<a class="image">
+				<img src="#" alt="">
+			</a>
+
+			<div class="foot">
+				<div class="flex">
+					<h2>null</h2>
+					<div class="price">null</div>
+				</div>
+
+				<a class="btn-more">
+					<span>null</span>
+					<svg width="10" height="10"><use xlink:href="#arr"></use></svg>
+				</a>
+			</div>
+		</div>
+	</div>
 </template>
