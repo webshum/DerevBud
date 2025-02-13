@@ -198,6 +198,7 @@
 	.image {
 		display: block;
 		overflow: hidden;
+		height: 100%;
 
 		img {
 			width: 100%;

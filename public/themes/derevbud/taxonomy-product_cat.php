@@ -7,8 +7,7 @@
 			$cat_id = $category->term_id;
 			$title =  get_term_meta( $cat_id, 'title', 1 );
 			$json = json_encode($category);
-
-			$id = ($cat_id != 89 && $cat_id != 183) ? $cat_id : 0;
+			$id = ($cat_id != 273) ? $cat_id : 0;
 		?>
 
         <archive-products :cat-id="'<?php echo $id ?>'"></archive-products>

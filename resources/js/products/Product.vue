@@ -28,7 +28,7 @@ onMounted(() => {
 		class="image" 
 		v-if="product.images[0] !== null"
 	>	
-		<img :src="`${product.images[0].thumbnail}`" loading="lazy" alt="">
+		<img :src="`${product.images[0]}`" loading="lazy" alt="">
 	</a>
 
 	<div class="foot">

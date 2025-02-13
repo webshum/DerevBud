@@ -1,7 +1,16 @@
 const URL = import.meta.env.VITE_API_URL;
-const API_URL_GET_PRODUCTS = URL + '/wp-json/wc/store/v1/products';
+// const API_URL_GET_PRODUCTS = URL + '/wp-json/wc/store/v1/products';
+const API_URL_GET_PRODUCTS = URL + '/wp-json/derevbud/v1/products';
 const API_URL_GET_ATTRIBUTES = URL + '/wp-json/derevbud/v1/attributes';
 const API_URL_GET_PRICE = URL + '/wp-json/derevbud/v1/price';
+
+const getCookie = (name) => {
+	let matches = document.cookie.match(new RegExp(
+		"(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+	));
+
+	return matches ? decodeURIComponent(matches[1]) : undefined;
+}
 
 const header = () => {
 	const header = document.getElementById('header');
@@ -185,7 +194,7 @@ const fetchProducts = async (data) => {
 	try {
 		const params = new URLSearchParams(data).toString();
 		const url = `${API_URL_GET_PRODUCTS}?${params}`;
-		console.log(url);
+		
 		const response = await fetch(url);
 
 		if (response.ok) {
@@ -231,5 +240,6 @@ export {
 	lazyLoad,
 	fetchProducts,
 	fetchAttributes,
-	fetchPrice
+	fetchPrice,
+	getCookie
 };

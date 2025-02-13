@@ -28,7 +28,7 @@ $attachment_ids = $product->get_gallery_image_ids();
 
 ?>
 
-<ul>
+<ul class="product-gallery">
 
 	<?php if ($attachment_ids) : ?>
 		<?php foreach ($attachment_ids as $attachment_id) : $props = wc_get_product_attachment_props( $attachment_id, $post ); ?>

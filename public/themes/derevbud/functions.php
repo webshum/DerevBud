@@ -162,16 +162,103 @@ pll_register_string( 'close', 'Close', 'DerevBud' );
 
 // API
 add_action('rest_api_init', function() {
+    register_rest_route('derevbud/v1', '/products', [
+        'methods'  => 'GET',
+        'callback' => 'get_products',
+        'permission_callback' => '__return_true',
+    ]);
+
     register_rest_route('derevbud/v1', '/attributes', [
         'methods' => 'GET',
-        'callback' => 'get_attributes'
+        'callback' => 'get_attributes',
+        'permission_callback' => '__return_true',
     ]);
 
     register_rest_route('derevbud/v1', 'price', [
         'methods' => 'GET',
-        'callback' => 'get_price'
+        'callback' => 'get_price',
+        'permission_callback' => '__return_true',
     ]);
 });
+
+function get_products(WP_REST_Request $request) {
+    $per_page  = intval($request->get_param('per_page')) ?: 10;
+    $page      = intval($request->get_param('page')) ?: 1;
+    $orderby   = sanitize_text_field($request->get_param('orderby')) ?: 'date';
+    $order     = strtoupper(sanitize_text_field($request->get_param('order'))) === 'DESC' ? 'DESC' : 'ASC';
+    $catalog_visibility = sanitize_text_field($request->get_param('catalog_visibility'));
+    $lang      = sanitize_text_field($request->get_param('lang'));
+    $category  = intval($request->get_param('category'));
+    $category_operator = sanitize_text_field($request->get_param('category_operator')) === 'not_in' ? 'NOT IN' : 'IN';
+    $attributes = $request->get_param('attributes');
+
+    $args = [
+        'post_type'      => 'product',
+        'posts_per_page' => $per_page,
+        'paged'          => $page,
+        'orderby'        => in_array($orderby, ['title', 'date', 'price'], true) ? $orderby : 'date',
+        'order'          => $order,
+        'tax_query'      => [],
+        'meta_query'     => [],
+    ];
+
+    if (!empty($category)) {
+        $args['tax_query'][] = [
+            'taxonomy' => 'product_cat',
+            'field'    => 'term_id',
+            'terms'    => [$category],
+            'operator' => $category_operator,
+        ];
+    }
+
+    if (!empty($attributes) && is_array($attributes)) {
+        foreach ($attributes as $attribute) {
+            if (
+                !empty($attribute['attribute']) &&
+                !empty($attribute['slug']) &&
+                is_array($attribute['slug'])
+            ) {
+                $taxonomy = sanitize_text_field($attribute['attribute']);
+                $operator = isset($attribute['operator']) && strtoupper($attribute['operator']) === 'IN' ? 'IN' : 'NOT IN';
+
+                $terms = array_map('sanitize_text_field', array_values($attribute['slug']));
+
+                $args['tax_query'][] = [
+                    'taxonomy' => $taxonomy,
+                    'field'    => 'slug',
+                    'terms'    => $terms,
+                    'operator' => $operator,
+                ];
+            }
+        }
+    }
+
+    /*if (!empty($lang)) {
+        $args['tax_query'][] = [
+            'taxonomy' => 'language',
+            'field'    => 'slug',
+            'terms'    => $lang,
+        ];
+    }*/
+
+    $query = new WP_Query($args);
+    $posts = $query->posts;
+
+    $data = [];
+    if (!empty($posts)) {
+        foreach ($posts as $post) {
+            $image = get_the_post_thumbnail_url($post->ID, 'post-thumbnail');
+            $data[] = [
+                'id'       => $post->ID,
+                'name'    => $post->post_title,
+                'permalink'     => get_permalink($post->ID),
+                'images'    => [$image ?: ''],
+            ];
+        }
+    }
+
+    return new WP_REST_Response($data, 200);
+}
 
 // Price
 function get_price($request) {
@@ -1147,14 +1234,10 @@ function get_price_html() {
  */
 $taxname = 'post_tag';
 
-// Поля при добавлении элемента таксономии
 add_action("{$taxname}_add_form_fields", 'add_new_custom_fields');
-// Поля при редактировании элемента таксономии
 add_action("{$taxname}_edit_form_fields", 'edit_new_custom_fields');
 
-// Сохранение при добавлении элемента таксономии
 add_action("create_{$taxname}", 'save_custom_taxonomy_meta');
-// Сохранение при редактировании элемента таксономии
 add_action("edited_{$taxname}", 'save_custom_taxonomy_meta');
 
 function edit_new_custom_fields( $term ) {
@@ -1188,7 +1271,7 @@ function edit_new_custom_fields( $term ) {
                     'drag_drop_upload' => false
                 ) );
                 ?>
-                <!-- <textarea name="extra[description]"></textarea><br /> -->
+                <textarea name="extra[description]"></textarea><br /> 
                 <span class="description">Опис категорії</span>
             </td>
         </tr>
@@ -1219,16 +1302,11 @@ function save_custom_taxonomy_meta( $term_id ) {
  * Додаємо мета поля для (Міток поста)
  */
 $taxname = 'product_cat';
-
-// Поля при добавлении элемента таксономии
-add_action("{$taxname}_add_form_fields", 'add_new_custom_fields_tag_post');
-// Поля при редактировании элемента таксономии
+/*add_action("{$taxname}_add_form_fields", 'add_new_custom_fields_tag_post');
 add_action("{$taxname}_edit_form_fields", 'edit_new_custom_fields_tag_pos');
 
-// Сохранение при добавлении элемента таксономии
 add_action("create_{$taxname}", 'save_custom_taxonomy_meta_tag_pos');
-// Сохранение при редактировании элемента таксономии
-add_action("edited_{$taxname}", 'save_custom_taxonomy_meta_tag_pos');
+add_action("edited_{$taxname}", 'save_custom_taxonomy_meta_tag_pos');*/
 
 function edit_new_custom_fields_tag_pos( $term ) {
     ?>
@@ -1273,16 +1351,15 @@ function save_custom_taxonomy_meta_tag_pos( $term_id ) {
     if ( ! isset($_POST['extra']) )
         return;
 
-    // Все ОК! Теперь, нужно сохранить/удалить данные
     $extra = array_map('trim', $_POST['extra']);
 
     foreach( $extra as $key => $value ){
         if( empty($value) ){
-            delete_term_meta( $term_id, $key ); // удаляем поле если значение пустое
+            delete_term_meta( $term_id, $key );
             continue;
         }
 
-        update_term_meta( $term_id, $key, $value ); // add_term_meta() работает автоматически
+        update_term_meta( $term_id, $key, $value );
     }
 
     return $term_id;

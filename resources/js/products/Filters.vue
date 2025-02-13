@@ -1,7 +1,8 @@
 <script setup>
 import { ref, onMounted, defineProps, onUnmounted } from 'vue';
-import { fetchAttributes } from '../helpers.js';
+import { fetchAttributes, getCookie } from '../helpers.js';
 
+const lang = getCookie('pll_language');
 const attributes = ref(null);
 const refFilters = ref(null);
 const showFilters = ref(false);
@@ -82,8 +83,9 @@ function onBtnFiltersClose(e) {
 		class="form-filters" 
 		ref="refFilters"
 	>
-		<input class="input-hidden" type="hidden" name="orderby" value="date">
-		<input class="input-hidden" type="hidden" name="order" value="desc">
+		<input class="input-hidden" type="hidden" name="lang" :value="lang">
+		<input class="input-hidden" type="hidden" name="orderby" value="title">
+		<input class="input-hidden" type="hidden" name="order" value="asc">
 		<input class="input-hidden" type="hidden" name="catalog_visibility" value="catalog">
 		<input class="input-hidden" type="hidden" name="per_page" :value="perPage">
 		<input class="input-hidden" type="hidden" name="page" value="1">

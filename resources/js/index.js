@@ -3,6 +3,10 @@ import { header, popup, formAjax } from './helpers';
 import { createApp } from 'vue/dist/vue.esm-bundler';
 import i18n from './language.js';
 import ArchiveProducts from './pages/ArchiveProducts.vue';
+import SimpleLightbox from 'simple-lightbox';
+import 'simple-lightbox/dist/simpleLightbox.min.css';
+
+new SimpleLightbox({elements: '.product-gallery a'});
 
 window.onload = () => {
 	header();
